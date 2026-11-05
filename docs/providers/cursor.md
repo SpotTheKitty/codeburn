@@ -16,7 +16,7 @@ A single SQLite database per platform:
 | Windows | `%APPDATA%/Cursor/User/globalStorage/state.vscdb` |
 | Linux | `$XDG_CONFIG_HOME/Cursor/User/globalStorage/state.vscdb`, falling back to `~/.config/Cursor/User/globalStorage/state.vscdb` |
 
-Windows honors `APPDATA`, falling back to `AppData/Roaming` under the home directory when it is unset or empty. Workspace mappings come from the database's sibling `workspaceStorage` folder, so they follow the same redirected root. Explicit database overrides take precedence. Changes to `APPDATA` or `XDG_CONFIG_HOME` invalidate Cursor's session-cache fingerprint.
+Windows honors `APPDATA`, falling back to `AppData/Roaming` under the home directory when it is unset or empty. Workspace mappings come from the database's sibling `workspaceStorage` folder, so they follow the same redirected root. Explicit database overrides take precedence, and `CODEBURN_CURSOR_DB` names one `state.vscdb` (for a service account whose Cursor profile is not the default). Changes to `APPDATA` or `XDG_CONFIG_HOME` invalidate Cursor's session-cache fingerprint.
 
 The result cache also checks the resolved database path, so a different data root cannot reuse the previous database's calls just because its size and modification time match. The daily-cache migration backfills historical usage found under corrected editor roots.
 

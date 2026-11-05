@@ -88,6 +88,9 @@ function rethrowBusy(err: unknown): void {
 }
 
 export function getCursorDbPath(): string {
+  // CODEBURN_CURSOR_DB points at one state.vscdb (a seat account keeps its own, outside the default profile).
+  const override = process.env['CODEBURN_CURSOR_DB']?.trim()
+  if (override) return override
   return join(getEditorDataDir('Cursor', homedir(), process.platform), 'User', 'globalStorage', 'state.vscdb')
 }
 
