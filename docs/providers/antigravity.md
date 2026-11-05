@@ -10,7 +10,7 @@ Google Antigravity (CLI and IDE). CodeBurn discovers session files on disk and q
 
 CodeBurn discovers Antigravity sessions from local directories on disk, then queries the live language-server process (if running) to fetch detailed trajectory generator metadata:
 
-1. **Session Discovery:** It scans the following folders for `.pb` or `.db` files:
+1. **Session Discovery:** (`CODEBURN_ANTIGRAVITY_HOME` replaces the home directory that holds `.gemini`, for a service account.) It scans the following folders for `.pb` or `.db` files:
    - **Antigravity CLI:** `%USERPROFILE%\.gemini\antigravity-cli\conversations` (and `implicit`)
    - **Antigravity App/older path:** `%USERPROFILE%\.gemini\antigravity\conversations`. The standalone app (2.19+, `language_server --standalone --subclient_type hub --app_data_dir antigravity`) writes here too: new conversations as `.db`, older ones stay `.pb`.
    - **Antigravity IDE:** `%USERPROFILE%\.gemini\antigravity-ide\conversations` (and `implicit`). The IDE also maintains VSCode-style global state at `%APPDATA%\Antigravity IDE\User\globalStorage\state.vscdb`, but that DB stores trajectory metadata (titles, timestamps, workspace paths) — not token usage. Token usage data still comes from the `.db` conversation files.

@@ -22,8 +22,13 @@ type AntigravityConversationRoot = {
 
 // Computed on each call rather than frozen at module load so discovery honors
 // the current home directory (env overrides in tests, and any runtime change).
+// CODEBURN_ANTIGRAVITY_HOME replaces the home that holds .gemini (a seat account keeps its own).
+function antigravityHome(): string {
+  return process.env['CODEBURN_ANTIGRAVITY_HOME']?.trim() || homedir()
+}
+
 function conversationRoots(): readonly AntigravityConversationRoot[] {
-  const home = homedir()
+  const home = antigravityHome()
   return [
     {
       dir: join(home, '.gemini', 'antigravity', 'conversations'),
@@ -1170,7 +1175,7 @@ async function readPromptFromTranscriptFile(filePath: string): Promise<string> {
 }
 
 export async function extractAntigravityTranscriptPrompt(cascadeId: string, sourcePath?: string): Promise<string> {
-  const home = homedir()
+  const home = antigravityHome()
   const candidates: string[] = []
   if (sourcePath) {
     candidates.push(join(dirname(sourcePath), '..', 'brain', cascadeId, '.system_generated', 'logs', 'transcript.jsonl'))
